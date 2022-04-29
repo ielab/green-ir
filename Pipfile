@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+toml = "*"
+pandas = "*"
+# Specific version for running uniCOIL.
+pyserini = {git = "git+ssh://git@github.com/castorini/pyserini.git@82f842218f8c5c7c451b2e463774d7bdf6bc0653"}
+# All other experiments.
+#pyserini = "0.15.0"
+ir_datasets = "*"
+pyJoules = "*"
+faiss-cpu = "*"
+torch = "*"
+codecarbon = "*"
+matplotlib = "*"
+seaborn = "*"
+lightgbm = "*"
+adjusttext = "*"
+brokenaxes = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

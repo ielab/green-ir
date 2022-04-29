@@ -1,0 +1,208 @@
+# ----------------------------------------------------------------------------------
+# Global options for calculations.
+PUE = 1.89 # This value comes directly from the manager of HPC at UQ.
+equivalent_emissions = 0.7659 # Using data from https://aemo.com.au/en/energy-systems/electricity/national-electricity-market-nem/market-operations/settlements-and-payments/settlements/carbon-dioxide-equivalent-intensity-index
+# ----------------------------------------------------------------------------------
+# Flight data, using https://www.atmosfair.de/en/offset/flight/.
+plane_mel_mad = 11_682
+plane_pvg_mad =  4_911
+plane_jfk_mad =  2_293
+plane_fra_mad =    728
+
+# ----------------------------------------------------------------------------------
+# Car data, using https://www.epa.gov/automotive-trends/explore-automotive-trends-data
+car_kg_per_km = 0.561661056
+# ----------------------------------------------------------------------------------
+# Results for each of the experiments.
+
+[[experiment]]
+id = "BM25"
+name = "BM25 Indexing"
+watts = 13.999943266775901
+running_time = 0.08091720587677426
+
+[[experiment]]
+id = "BM25"
+name = "BM25 Search"
+watts = 13.99800891858496
+running_time = 0.0025018946992026434
+usage = true
+
+[[experiment]]
+# Use the following script to get the LightGBM to work.
+# https://github.com/guolinke/boosting_tree_benchmarks/blob/master/data/yahoo2libsvm.py
+id = "LambdaMART"
+name = "LambdaMART Training"
+watts = 13.999943172916113
+running_time = 0.02852917810281118
+
+[[experiment]]
+id = "LambdaMART"
+name = "LambdaMART Rerank + BM25" # Combined with BM25 search.
+watts = 13.9999395564
+running_time = 0.06284408285
+include = true
+usage = true
+
+[[experiment]]
+id = "DPR"
+name = "DPR Training"
+watts = 216.55536043467157
+running_time = 16.46229549255636
+batch_size = 16
+updates = 150000
+
+[[experiment]]
+id = "DPR"
+name = "DPR Indexing"
+watts = 227.11449321252664
+running_time = 2.4204843310515085
+
+[[experiment]] # Retrieval of all 6980 queries using batch retrieval.
+id = "DPR"
+name = "DPR Search"
+watts = 0.21838164421274847
+running_time = 0.4140895127587848
+
+[[experiment]] # Retrieval of x200 queries using query-by-query instead of batch.
+id = "DPR_search_only"
+name = "DPR Search (*)"
+watts = 0.10048957196795572
+running_time = 0.41378816094663406
+include = false
+usage = true
+
+[[experiment]]
+id = "monoBERT"
+name = "monoBERT Training"
+watts = 533.8682606910946
+running_time = 57.43260488624553
+
+[[experiment]]
+id = "monoBERT"
+name = "monoBERT Rerank"
+watts = 246.42902704580862
+running_time = 23.10117000129488
+include = false
+
+[[experiment]]
+id = "monoBERT"
+name = "monoBERT Rerank + BM25"
+watts = 246.42902704580862
+running_time = 23.1820872072
+usage = true
+
+[[experiment]]
+id = "TILDEv2"
+name = "TILDEv2 Training"
+watts = 232.40250404707453
+running_time = 15.733414441810714
+
+[[experiment]]
+id = "TILDEv2"
+name = "TILDEv2 Indexing"
+watts = 265.7088222401711
+running_time = 9.435415707230568
+
+[[experiment]]
+# Only the re-ranking.
+id = "TILDEv2_rerank"
+name = "[###] TILDEv2 Rerank"
+watts = 0.5766976747466257
+running_time = 0.022224032084147135
+usage = false
+include = false
+
+[[experiment]]
+id = "TILDEv2"
+name = "TILDEv2 Rerank + BM25"
+watts = 7.2873532967
+running_time = 0.02472592678
+usage = true
+include = true
+
+[[experiment]]
+id = "uniCOIL"
+name = "uniCOIL Training"
+watts = 213.1159126409181
+running_time = 17.968251311050523
+
+[[experiment]]
+id = "uniCOIL"
+name = "uniCOIL Indexing"
+watts = 281.9260559787847
+running_time = 3.6628483731
+
+[[experiment]]
+id = "uniCOIL"
+name = "uniCOIL Search"
+watts = 13.99995217461586
+running_time = 0.8966411066055298
+usage = true
+
+[[experiment]]
+id = "TILDE_expansion"
+name = "TILDE Expansion"
+watts = 46.25391388420551
+running_time = 11.886102957124072
+hardware = "-"
+include = false
+
+[[experiment]]
+id = "docTquery_expansion"
+name = "docTquery Expansion"
+watts = 117.62431758794025
+running_time = 760.4843571800951
+hardware = "-"
+include = false
+
+# ----------------------------------------------------------------------------------
+
+[[result]]
+id = "BM25"
+mrr_10 = 0.187
+
+[[result]]
+id = "DPR"
+mrr_10 = 0.325
+
+[[result]]
+id = "uniCOIL (docTquery expansion)"
+mrr_10 = 0.352
+
+[[result]]
+id = "uniCOIL (TILDE expansion)"
+mrr_10 = 0.349
+
+[[result]]
+id = "TILDEv2 (docTquery expansion)"
+mrr_10 = 0.333
+
+[[result]]
+id = "TILDEv2 (TILDE expansion)"
+mrr_10 = 0.330
+
+[[result]]
+id = "monoBERT"
+mrr_10 = 0.362
+
+# ----------------------------------------------------------------------------------
+
+# https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Televisions/vd8s-5tty
+[[appliance]] # Average of 214 consumer televisions.
+name = "Television"
+watts = 73.27966969658173
+running_time = 5.0
+
+# https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Residential-Clothes-Dryers/t9u7-4d2j
+[[appliance]] # Average of 483 household dryers.
+name = "Clothes Dryer"
+watts = 2073.3563051891524
+running_time = 1.0847481021394065
+
+# https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Residential-Refrigerators/p5st-her9
+[[appliance]] # Average of 3121 consumer refridgerators.
+name = "Refrigerator"
+watts = 43.776033322653
+running_time = 168
+
