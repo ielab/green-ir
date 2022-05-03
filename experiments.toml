@@ -105,19 +105,10 @@ watts = 265.7088222401711
 running_time = 9.435415707230568
 
 [[experiment]]
-# Only the re-ranking.
-id = "TILDEv2_rerank"
-name = "[###] TILDEv2 Rerank"
-watts = 0.5766976747466257
-running_time = 0.022224032084147135
-usage = false
-include = false
-
-[[experiment]]
 id = "TILDEv2"
 name = "TILDEv2 Rerank + BM25"
-watts = 7.2873532967
-running_time = 0.02472592678
+watts = 14.574706593331586
+running_time = 0.02472592678334978
 usage = true
 include = true
 

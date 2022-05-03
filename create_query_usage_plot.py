@@ -2,9 +2,16 @@ import csv
 import toml
 from matplotlib import pyplot as plt
 import matplotlib.ticker as ticker
+import matplotlib as mpl
 import seaborn as sns
 import pandas as pd
 import numpy as np
+
+# This causes matplotlib to use Type 42 (a.k.a. TrueType) fonts for PostScript and PDF files.
+# This allows you to avoid Type 3 fonts without limiting yourself to the stone-age technology
+# of Type 1 fonts.
+mpl.rcParams['pdf.fonttype'] = 42
+mpl.rcParams['ps.fonttype'] = 42
 
 NUM_QUERIES = 6980
 NUM_ESTIMATE = 200
